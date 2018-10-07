@@ -45,5 +45,23 @@
       </svg>
     </div>
   </main>
+  <script>
+    document.addEventListener('keydown', (event) => {
+      if(!(event.ctrlKey && event.altKey)){
+        return;
+      }
+      if(event.code === 'KeyT'){
+        document.getElementsByTagName('nav')[0].classList.toggle('visible');
+      }
+    });
+    const secretWord = "KeyYKeyTKeyNKeyJKeyKKeyJKeyUKeyBKeyZ";
+    let word = '';
+    document.addEventListener('keydown', (event) => {
+      word = word + event.code;
+      if(word === secretWord){
+        document.getElementsByClassName('secret')[0].classList.add('visible')
+      }
+    })
+  </script>
 </body>
 </html>

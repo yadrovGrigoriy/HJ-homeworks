@@ -25,5 +25,86 @@
       <audio src=""></audio>
     </li>
   </ul>
+  <script>
+const piano = document.querySelector('.set');
+const pianoButtons = piano.querySelectorAll('li');
+const sounds = piano.querySelectorAll('audio');
+const lowerSound = [
+  'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/first.mp3',
+  'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/second.mp3',
+  'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/third.mp3',
+  'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/fourth.mp3',
+  'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/fifth.mp3'
+];
+const middleSound = [
+  'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/first.mp3',
+  'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/second.mp3',
+  'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/third.mp3',
+  'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/fourth.mp3',
+  'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/fifth.mp3'
+];
+const higherSound = [
+  'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/first.mp3',
+  'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/second.mp3',
+  'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/third.mp3',
+  'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/fourth.mp3',
+  'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/fifth.mp3'
+];
+
+
+function setLowerSound(event){
+	if(!event.shiftKey){
+   		 return;
+  	}
+    piano.className = piano.className.replace('middle', 'lower');
+}
+
+function removeLowerSound(event){
+	piano.classList.remove('lower');
+    piano.classList.add('middle');
+}
+
+
+function setHigherSound(event){
+	if(!event.altKey){
+    	return;
+  	};
+  	piano.className = piano.className.replace('middle', 'higher');
+}
+
+function removeHigherSound(event){
+	piano.classList.remove('higher');
+    piano.classList.add('middle');
+}
+
+document.addEventListener('keydown', setLowerSound);
+document.addEventListener('keyup', removeLowerSound);
+document.addEventListener('keydown', setHigherSound);
+document.addEventListener('keyup', removeHigherSound );
+
+for(const button of pianoButtons){
+  button.addEventListener('click', () => {
+    for(const sound of sounds){
+      sound.pause();
+      sound.currentTime = 0;
+    }
+
+    if(piano.classList.contains('higher')){
+	  sounds.forEach((sound, i) => {
+	    sound.src = higherSound[i];
+	  });
+	} else if(piano.classList.contains('lower')){
+		sounds.forEach((sound, i) => {
+    	sound.src = lowerSound[i];
+  });
+	} else {
+		sounds.forEach((sound, i) => {
+    	sound.src = middleSound[i];
+    });
+	}
+    button.querySelector('audio').play();
+  })
+}
+  </script>
 </body>
 </html>
