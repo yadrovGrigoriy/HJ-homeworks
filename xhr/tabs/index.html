@@ -21,5 +21,49 @@
     </div>
     <div id="preloader" class="hidden">Загрузка...</div>
   </div>
+  <script>
+  	const tabs = document.getElementsByClassName('tabs');
+  	const links = tabs[0].getElementsByTagName('a');
+  	const content = document.getElementById('content');
+  	const preloader = document.getElementById('preloader');
+
+
+  	function showTab(){
+  		const link = document.querySelector('a.active');
+  		let xhr = new XMLHttpRequest();
+  		xhr.addEventListener('loadstart', function(){
+  			preloader.classList.remove('hidden')
+  		})
+  		xhr.addEventListener('loadend', function(){
+  			preloader.classList.add('hidden')
+  		})
+  		xhr.addEventListener('load', function(){
+	  		content.innerHTML = xhr.responseText;	
+	  	})
+	  	xhr.open('GET', link.href);
+  		xhr.send();
+  	}
+
+  	function removeClassActive(event){
+  		for(const link of links){
+  			link.classList.remove('active');
+  		}
+  	}
+
+
+
+	showTab();  
+  for(const link of links){
+  	link.addEventListener('click', (event) => {
+  		event.preventDefault();
+  		removeClassActive();
+  		link.classList.toggle('active');
+  		showTab();
+  	});
+  }
+
+
+
+  </script>
 </body>
 </html>
