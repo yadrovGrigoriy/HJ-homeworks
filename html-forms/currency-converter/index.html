@@ -18,5 +18,60 @@
   </main>
 
   <div id="loader" class="hidden">Загрузка...</div>
+  <script>
+  	const fromCurrency = document.getElementById('from');
+		const toCurrency = document.getElementById('to'); 
+		const result = document.getElementById('result');
+		const input = document.getElementById('source');
+		
+	
+		function calc(){
+			let num = fromCurrency.value / toCurrency.value * input.value;
+		 	result.value = Math.round(num * 100) / 100;
+		}
+
+		function respParse(){
+			return JSON.parse(xhr.responseText);	
+		}
+
+  		
+  	function fillFields(){
+  		const currency = respParse(); 
+  		for(const el of currency){
+    	let optionFrom = document.createElement('option');
+    	optionFrom.innerHTML = el.code
+    	optionFrom.value = el.value;
+    	fromCurrency.appendChild(optionFrom);
+    
+    	let optionTo = document.createElement('option');
+  	  optionTo.innerHTML = el.code;
+  	  optionTo.value = el.value;
+    	toCurrency.appendChild(optionTo);
+	    }
+    }
+
+		let xhr =  new XMLHttpRequest();
+		xhr.addEventListener('load', function(){
+			respParse();
+			fillFields();
+			calc();
+		});
+		xhr.addEventListener('loadstart', function(){
+  		document.getElementById('loader').classList.toggle('hidden');
+		});
+		xhr.addEventListener('loadend', function(){
+  		document.getElementById('content').classList.remove('hidden');
+  		document.getElementById('loader').classList.toggle('hidden');
+		});
+		xhr.open("GET", "https://neto-api.herokuapp.com/currency");
+		xhr.send();
+  	
+		input.addEventListener('input', calc)
+  	fromCurrency.addEventListener('change', calc);
+  	toCurrency.addEventListener('change', calc);
+
+		
+
+  </script>
 </body>
 </html>
