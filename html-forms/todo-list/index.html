@@ -29,5 +29,32 @@
     </ul>
     <h3>Выполнено задач: <output></output></h3>
   </fieldset>
+
+  <script>
+    const listBlock = document.getElementsByClassName('list-block');
+    const tasks = Array.from(document.querySelectorAll('li input[type="checkbox"]'));
+    const result = document.getElementsByTagName('output')[0];
+
+    function isDone(){
+      const chekedTasks =  tasks.filter(task => task.checked === true);
+      result.value = `${chekedTasks.length} из ${tasks.length}`;
+      if (chekedTasks.length === tasks.length){
+        document.getElementsByClassName('list-block')[0].classList.add('complete');
+      } else {
+        document.getElementsByClassName('list-block')[0].classList.remove('complete');
+      }
+    }
+
+    isDone();  
+    for(const task of tasks){
+      task.addEventListener('click', isDone);
+    }
+
+    
+
+
+    
+    
+  </script> 
 </body>
 </html>
