@@ -52,10 +52,10 @@
 
 		let xhr =  new XMLHttpRequest();
 		xhr.addEventListener('load', function(){
-			respParse();
+		  respParse();
 			fillFields();
 			calc();
-		});
+		  });
 		xhr.addEventListener('loadstart', function(){
   		document.getElementById('loader').classList.toggle('hidden');
 		});
@@ -69,9 +69,6 @@
 		input.addEventListener('input', calc)
   	fromCurrency.addEventListener('change', calc);
   	toCurrency.addEventListener('change', calc);
-
-		
-
   </script>
 </body>
 </html>
