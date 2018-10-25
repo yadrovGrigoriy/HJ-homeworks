@@ -46,10 +46,11 @@ function getItemElement(item) {
 }
 
 function loadItems(target) {
-  target.innerHTML += items
-    .slice(shownItems, shownItems + 3)
+  console.log(target)
+  target.innerHTML = items
     .map(getItemElement)
     .join('');
+    
   shownItems += 3;
   if (shownItems >= items.length) {
     showMore.parentElement.removeChild(showMore);
@@ -62,3 +63,4 @@ showMore.addEventListener('click', event => {
 });
 
 loadItems(list);
+
