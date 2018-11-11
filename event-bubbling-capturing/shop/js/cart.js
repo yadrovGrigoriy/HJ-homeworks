@@ -1,20 +1,12 @@
 'use strict';
 
-handler();
-
-showMore.addEventListener( 'click', handler);
-
-function handler(){
-	const addToCartButton = document.querySelectorAll( '.add-to-cart' );
-	Array
-	.from(addToCartButton)
-	.forEach((el) => {
-		el.addEventListener( 'click', (event) => {
-			event.preventDefault();
-			addToCart( event.target.dataset )
-		})		
-	})	
-}
+document.querySelector('.items-list')
+  .addEventListener('click', function(event){
+    if(event.target.classList.contains('add-to-cart')){
+      event.preventDefault();
+      addToCart(event.target.dataset);
+    }
+  })
 
 
 
